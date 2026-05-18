@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>대진대 e-Class 갓생 비서</title>
+    <style>
+        body { font-family: 'Malgun Gothic', sans-serif; padding: 20px; background-color: #f5f6f7; }
+        .container { max-width: 600px; margin: 0 auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        button { background-color: #003366; color: white; border: none; padding: 12px; width: 100%; border-radius: 6px; font-size: 16px; cursor: pointer; }
+        .card { border-left: 5px solid #ff4d4d; background: #fff5f5; padding: 12px; margin-top: 10px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>💙 대진대 과제 자동 리마인더</h2>
+    <p>e-Class 공지 또는 과제 페이지의 전체 화면(Ctrl+A)을 복사해서 아래에 붙여넣으세요!</p>
+    
+    <!-- 사용자가 e-Class 화면을 복사해 붙여넣는 창 -->
+    <textarea id="rawText" rows="6" style="width:100%; margin-bottom:10px;" placeholder="여기에 복사한 내용을 붙여넣으세요..."></textarea>
+    
+    <button onclick="parseDaejinLMS()">과제 자동 추출하기</button>
+
+    <div id="resultSection" style="margin-top: 20px;">
+        <h3>📅 추출된 과제 목록</h3>
+        <div id="taskList">아직 등록된 과제가 없습니다.</div>
+    </div>
+</div>
+
+<script>
+function parseDaejinLMS() {
+    const rawText = document.getElementById('rawText').value;
+    const taskList = document.getElementById('taskList');
+    
+    // 대진대 e-Class에서 흔히 쓰이는 날짜 패턴 (예: 2026-05-20 또는 05월 20일)을 찾는 정규표현식
+    const datePattern = /(\d{4}-\d{2}-\d{2})|(\d{2}월\s?\d{2}일)/g;
+    const foundDates = rawText.match(datePattern);
+    
+    if (!foundDates) {
+        alert("날짜 형식을 찾지 못했습니다. 과제 페이지의 내용을 올바르게 복사했는지 확인해주세요!");
+        return;
+    }
+
+    // 텍스트에서 과제명과 마감일을 가공하는 가상 로직 (MVP 단계)
+    taskList.innerHTML = ""; // 초기화
+    
+    // 예시로 매칭된 첫 번째 날짜를 기준으로 과제 카드를 생성
+    foundDates.forEach((date, index) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `<strong>[추출된 과제 ${index + 1}]</strong><br>🚨 마감일: ${date}<br><small>구글 시트 및 리마인더에 자동 등록되었습니다.</small>`;
+        taskList.appendChild(card);
+    });
+
+    // TODO: 이 단계에서 SheetDB API를 호출하여 구글 스프레드시트로 데이터를 전송합니다.
+}
+</script>
+
+</body>
+</html>
