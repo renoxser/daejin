@@ -7,104 +7,106 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --navy: #001f4d; --navy-mid: #002d6e; --blue: #0047b3;
-            --accent: #ff3b3b; --gold: #ffc947; --white: #ffffff;
-            --off-white: #f7f8fc; --gray-light: #eef0f8; --gray: #9aa0b8; --text: #1a1e2e;
+            --navy:#001f4d;--navy-mid:#002d6e;--blue:#0047b3;
+            --accent:#ff3b3b;--gold:#ffc947;--white:#ffffff;
+            --off-white:#f7f8fc;--gray-light:#eef0f8;--gray:#9aa0b8;--text:#1a1e2e;
         }
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Noto Sans KR', sans-serif; background-color: var(--navy); min-height: 100vh; color: var(--text); overflow-x: hidden; }
-        body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; z-index: 0; }
-        body::after { content: ''; position: fixed; top: -20%; right: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(0,71,179,0.35) 0%, transparent 70%); border-radius: 50%; pointer-events: none; z-index: 0; animation: blobPulse 8s ease-in-out infinite; }
-        @keyframes blobPulse { 0%,100%{transform:scale(1) translate(0,0)} 50%{transform:scale(1.15) translate(-30px,30px)} }
-        header { position: relative; z-index: 10; padding: 40px 24px 0; max-width: 700px; margin: 0 auto; animation: slideDown 0.7s cubic-bezier(0.22,1,0.36,1) both; }
-        @keyframes slideDown { from{opacity:0;transform:translateY(-24px)} to{opacity:1;transform:translateY(0)} }
-        .badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 100px; padding: 5px 14px; font-size: 11px; font-weight: 500; color: var(--gold); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 20px; backdrop-filter: blur(8px); }
-        .badge-dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; animation: blink 1.4s ease-in-out infinite; }
-        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
-        h1 { font-size: clamp(26px,5vw,38px); font-weight: 900; color: var(--white); line-height: 1.2; letter-spacing: -0.02em; }
-        h1 em { font-style: normal; color: var(--gold); }
-        header p { color: rgba(255,255,255,0.7); font-size: 13.5px; font-weight: 300; margin-top: 10px; line-height: 1.7; }
-        main { position: relative; z-index: 10; max-width: 700px; margin: 28px auto 48px; padding: 0 24px; animation: slideUp 0.7s 0.15s cubic-bezier(0.22,1,0.36,1) both; }
-        @keyframes slideUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
-        .card { background: var(--white); border-radius: 20px; overflow: hidden; box-shadow: 0 0 0 1px rgba(0,0,0,0.06), 0 24px 64px rgba(0,0,0,0.3); }
-        .step-bar { background: var(--off-white); border-bottom: 1px solid var(--gray-light); padding: 14px 24px; display: flex; align-items: center; gap: 10px; }
-        .step { display: flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 600; color: var(--gray); transition: color 0.3s; }
-        .step.active { color: var(--blue); }
-        .step-num { width: 20px; height: 20px; border-radius: 50%; background: var(--gray-light); color: var(--gray); font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; font-family: 'Space Mono', monospace; transition: all 0.3s; }
-        .step.active .step-num { background: var(--blue); color: var(--white); }
-        .step-sep { flex: 1; height: 1px; background: var(--gray-light); }
-        .card-body { padding: 28px 28px 32px; }
-        .label { display: block; font-size: 11.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); margin-bottom: 8px; }
-        textarea { width: 100%; min-height: 140px; border: 2px solid var(--gray-light); border-radius: 12px; padding: 14px 16px; font-size: 13.5px; font-family: 'Noto Sans KR', sans-serif; color: var(--text); background: var(--off-white); resize: vertical; outline: none; transition: border-color 0.2s, box-shadow 0.2s; line-height: 1.7; }
-        textarea::placeholder { color: var(--gray); }
-        textarea:focus { border-color: var(--blue); box-shadow: 0 0 0 4px rgba(0,71,179,0.1); background: var(--white); }
-        .hint { margin-top: 8px; font-size: 11.5px; color: var(--gray); display: flex; align-items: center; gap: 5px; }
-        .hint kbd { background: var(--gray-light); border: 1px solid #dde0eb; border-radius: 4px; padding: 1px 5px; font-size: 10.5px; font-family: 'Space Mono', monospace; color: var(--text); }
-        .btn-wrap { margin-top: 20px; }
-        button { width: 100%; padding: 16px; background: var(--navy); color: var(--white); border: none; border-radius: 12px; font-size: 15px; font-weight: 700; font-family: 'Noto Sans KR', sans-serif; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; position: relative; overflow: hidden; transition: transform 0.15s, box-shadow 0.15s, background 0.15s; box-shadow: 0 4px 20px rgba(0,31,77,0.3); }
-        button::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 60%); pointer-events: none; }
-        button:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,31,77,0.4); background: var(--navy-mid); }
-        button:active { transform: translateY(0); }
-        .result-section { margin-top: 28px; opacity: 0; transform: translateY(12px); transition: opacity 0.4s, transform 0.4s; pointer-events: none; }
-        .result-section.visible { opacity: 1; transform: translateY(0); pointer-events: all; }
-        .result-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
-        .result-title { font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text); display: flex; align-items: center; gap: 6px; }
-        .result-count { background: var(--navy); color: var(--white); font-size: 10.5px; font-weight: 700; font-family: 'Space Mono', monospace; padding: 2px 8px; border-radius: 100px; }
-        #taskList { display: flex; flex-direction: column; gap: 10px; }
-        .task-card { display: flex; align-items: stretch; border-radius: 12px; overflow: hidden; border: 1px solid var(--gray-light); background: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.05); animation: cardIn 0.4s cubic-bezier(0.22,1,0.36,1) both; transition: box-shadow 0.2s, transform 0.2s; }
-        .task-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.1); transform: translateY(-1px); }
-        @keyframes cardIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
-        .task-stripe { width: 4px; flex-shrink: 0; }
-        .urgent { background: var(--accent); }
-        .warning { background: var(--gold); }
-        .safe { background: #34c759; }
-        .task-content { flex: 1; padding: 14px 16px; }
-        .task-index { font-size: 10px; font-weight: 700; font-family: 'Space Mono', monospace; color: var(--gray); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
-        .task-name { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 5px; }
-        .task-meta { font-size: 11.5px; color: var(--gray); display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
-        .task-meta-chip { background: var(--gray-light); padding: 2px 8px; border-radius: 100px; font-size: 10.5px; font-weight: 500; color: var(--text); }
-        .task-actions { display: flex; flex-direction: column; align-items: flex-end; justify-content: center; gap: 6px; padding: 10px 12px 10px 0; flex-shrink: 0; }
-        .task-badge { font-size: 10.5px; font-weight: 700; padding: 4px 10px; border-radius: 100px; letter-spacing: 0.04em; white-space: nowrap; }
-        .badge-urgent { background: #fff0f0; color: var(--accent); }
-        .badge-warning { background: #fffbea; color: #b07d00; }
-        .badge-safe { background: #edfaf2; color: #1a8f3e; }
-        .calendar-btn { display: inline-flex; align-items: center; justify-content: center; gap: 5px; background-color: var(--blue); color: var(--white); text-decoration: none; padding: 6px 12px; border-radius: 8px; font-size: 11.5px; font-weight: 600; transition: background-color 0.15s, transform 0.15s; white-space: nowrap; }
-        .calendar-btn:hover { background-color: var(--navy-mid); transform: translateY(-1px); }
-        .empty-state { text-align: center; padding: 32px 20px; color: var(--gray); }
-        .empty-state .empty-icon { font-size: 36px; margin-bottom: 10px; }
-        .empty-state p { font-size: 13.5px; line-height: 1.6; }
-        footer { position: relative; z-index: 10; text-align: center; padding: 0 24px 40px; animation: slideUp 0.7s 0.3s cubic-bezier(0.22,1,0.36,1) both; }
-        .footer-links { display: flex; align-items: center; justify-content: center; gap: 20px; font-size: 11.5px; color: rgba(255,255,255,0.3); }
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:'Noto Sans KR',sans-serif;background:var(--navy);min-height:100vh;color:var(--text);overflow-x:hidden}
+        body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
+        body::after{content:'';position:fixed;top:-20%;right:-10%;width:600px;height:600px;background:radial-gradient(circle,rgba(0,71,179,.35) 0%,transparent 70%);border-radius:50%;pointer-events:none;z-index:0;animation:blobPulse 8s ease-in-out infinite}
+        @keyframes blobPulse{0%,100%{transform:scale(1) translate(0,0)}50%{transform:scale(1.15) translate(-30px,30px)}}
+        header{position:relative;z-index:10;padding:40px 24px 0;max-width:700px;margin:0 auto;animation:slideDown .7s cubic-bezier(.22,1,.36,1) both}
+        @keyframes slideDown{from{opacity:0;transform:translateY(-24px)}to{opacity:1;transform:translateY(0)}}
+        .badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:100px;padding:5px 14px;font-size:11px;font-weight:500;color:var(--gold);letter-spacing:.08em;text-transform:uppercase;margin-bottom:20px;backdrop-filter:blur(8px)}
+        .badge-dot{width:6px;height:6px;background:var(--gold);border-radius:50%;animation:blink 1.4s ease-in-out infinite}
+        @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+        h1{font-size:clamp(26px,5vw,38px);font-weight:900;color:var(--white);line-height:1.2;letter-spacing:-.02em}
+        h1 em{font-style:normal;color:var(--gold)}
+        header p{color:rgba(255,255,255,.7);font-size:13.5px;font-weight:300;margin-top:10px;line-height:1.7}
+        main{position:relative;z-index:10;max-width:700px;margin:28px auto 48px;padding:0 24px;animation:slideUp .7s .15s cubic-bezier(.22,1,.36,1) both}
+        @keyframes slideUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+        .card{background:var(--white);border-radius:20px;overflow:hidden;box-shadow:0 0 0 1px rgba(0,0,0,.06),0 24px 64px rgba(0,0,0,.3)}
+        .step-bar{background:var(--off-white);border-bottom:1px solid var(--gray-light);padding:14px 24px;display:flex;align-items:center;gap:10px}
+        .step{display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;color:var(--gray);transition:color .3s}
+        .step.active{color:var(--blue)}
+        .step-num{width:20px;height:20px;border-radius:50%;background:var(--gray-light);color:var(--gray);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;transition:all .3s}
+        .step.active .step-num{background:var(--blue);color:var(--white)}
+        .step-sep{flex:1;height:1px;background:var(--gray-light)}
+        .card-body{padding:28px 28px 32px}
+        .label{display:block;font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:8px}
+        textarea{width:100%;min-height:140px;border:2px solid var(--gray-light);border-radius:12px;padding:14px 16px;font-size:13.5px;font-family:'Noto Sans KR',sans-serif;color:var(--text);background:var(--off-white);resize:vertical;outline:none;transition:border-color .2s,box-shadow .2s;line-height:1.7}
+        textarea::placeholder{color:var(--gray)}
+        textarea:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(0,71,179,.1);background:var(--white)}
+        .hint{margin-top:8px;font-size:11.5px;color:var(--gray);display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+        .hint kbd{background:var(--gray-light);border:1px solid #dde0eb;border-radius:4px;padding:1px 5px;font-size:10.5px;font-family:'Space Mono',monospace;color:var(--text)}
+        .btn-wrap{margin-top:20px}
+        button{width:100%;padding:16px;background:var(--navy);color:var(--white);border:none;border-radius:12px;font-size:15px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;position:relative;overflow:hidden;transition:transform .15s,box-shadow .15s,background .15s;box-shadow:0 4px 20px rgba(0,31,77,.3)}
+        button::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.06) 0%,transparent 60%);pointer-events:none}
+        button:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,31,77,.4);background:var(--navy-mid)}
+        button:active{transform:translateY(0)}
+        .result-section{margin-top:28px;opacity:0;transform:translateY(12px);transition:opacity .4s,transform .4s;pointer-events:none}
+        .result-section.visible{opacity:1;transform:translateY(0);pointer-events:all}
+        .result-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+        .result-title{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text);display:flex;align-items:center;gap:6px}
+        .result-count{background:var(--navy);color:var(--white);font-size:10.5px;font-weight:700;font-family:'Space Mono',monospace;padding:2px 8px;border-radius:100px}
+        #taskList{display:flex;flex-direction:column;gap:10px}
+        .task-card{display:flex;align-items:stretch;border-radius:12px;overflow:hidden;border:1px solid var(--gray-light);background:var(--white);box-shadow:0 2px 10px rgba(0,0,0,.05);animation:cardIn .4s cubic-bezier(.22,1,.36,1) both;transition:box-shadow .2s,transform .2s}
+        .task-card:hover{box-shadow:0 4px 18px rgba(0,0,0,.1);transform:translateY(-1px)}
+        @keyframes cardIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+        .task-stripe{width:4px;flex-shrink:0}
+        .urgent{background:var(--accent)}.warning{background:var(--gold)}.safe{background:#34c759}
+        .task-content{flex:1;padding:14px 16px}
+        .task-index{font-size:10px;font-weight:700;font-family:'Space Mono',monospace;color:var(--gray);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+        .task-name{font-size:14px;font-weight:700;color:var(--text);margin-bottom:5px}
+        .task-meta{font-size:11.5px;color:var(--gray);display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+        .task-meta-chip{background:var(--gray-light);padding:2px 8px;border-radius:100px;font-size:10.5px;font-weight:500;color:var(--text)}
+        .task-actions{display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:6px;padding:10px 12px 10px 0;flex-shrink:0}
+        .task-badge{font-size:10.5px;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:.04em;white-space:nowrap}
+        .badge-urgent{background:#fff0f0;color:var(--accent)}.badge-warning{background:#fffbea;color:#b07d00}.badge-safe{background:#edfaf2;color:#1a8f3e}
+        .calendar-btn{display:inline-flex;align-items:center;justify-content:center;gap:5px;background:var(--blue);color:var(--white);text-decoration:none;padding:6px 12px;border-radius:8px;font-size:11.5px;font-weight:600;transition:background .15s,transform .15s;white-space:nowrap}
+        .calendar-btn:hover{background:var(--navy-mid);transform:translateY(-1px)}
+        .empty-state{text-align:center;padding:32px 20px;color:var(--gray)}
+        .empty-state .empty-icon{font-size:36px;margin-bottom:10px}
+        .empty-state p{font-size:13.5px;line-height:1.7}
+        /* debug box */
+        .debug-box{margin-top:16px;background:#f8faff;border:1px solid #d0d9f0;border-radius:10px;padding:14px 16px;font-size:11.5px;color:#5a6070;line-height:1.8;font-family:'Space Mono',monospace;word-break:break-all;display:none}
+        .debug-box.visible{display:block}
+        footer{position:relative;z-index:10;text-align:center;padding:0 24px 40px;animation:slideUp .7s .3s cubic-bezier(.22,1,.36,1) both}
+        .footer-links{display:flex;align-items:center;justify-content:center;gap:20px;font-size:11.5px;color:rgba(255,255,255,.3)}
     </style>
 </head>
 <body>
-
 <header>
     <div class="badge"><span class="badge-dot"></span> 대진대학교 e-Class 연동</div>
     <h1>과제 <em>자동</em><br>리마인더 비서</h1>
-    <p>e-Class 공지·과제 화면을 복사해 붙여넣으면<br>과제명과 마감일을 자동으로 추출해 캘린더에 등록합니다.</p>
+    <p>e-Class 과제·공지 화면을 Ctrl+A → Ctrl+C 복사 후<br>붙여넣으면 마감일을 추출해 캘린더에 등록합니다.</p>
 </header>
-
 <main>
     <div class="card">
         <div class="step-bar">
-            <div class="step active" id="step1"><div class="step-num">1</div>텍스트 붙여넣기</div>
+            <div class="step active" id="step1"><div class="step-num">1</div>붙여넣기</div>
             <div class="step-sep"></div>
             <div class="step" id="step2"><div class="step-num">2</div>과제 추출</div>
             <div class="step-sep"></div>
             <div class="step" id="step3"><div class="step-num">3</div>등록 완료</div>
         </div>
-
         <div class="card-body">
             <label class="label" for="rawText">📋 e-Class 화면 텍스트</label>
-            <textarea id="rawText" placeholder="e-Class 과제·공지 페이지에서 전체 선택(Ctrl+A) 후 복사(Ctrl+C), 여기에 붙여넣기(Ctrl+V)"></textarea>
-            <p class="hint"><span>💡 팁:</span><kbd>Ctrl</kbd>+<kbd>A</kbd> 전체선택 → <kbd>Ctrl</kbd>+<kbd>C</kbd> 복사 → <kbd>Ctrl</kbd>+<kbd>V</kbd> 붙여넣기</p>
+            <textarea id="rawText" placeholder="e-Class 페이지에서 전체 선택(Ctrl+A) → 복사(Ctrl+C) → 여기에 붙여넣기(Ctrl+V)&#10;&#10;과제 목록 페이지 또는 과제 상세 페이지 모두 가능합니다."></textarea>
+            <p class="hint">
+                <span>💡</span>
+                <kbd>Ctrl</kbd>+<kbd>A</kbd> 전체선택 →
+                <kbd>Ctrl</kbd>+<kbd>C</kbd> 복사 →
+                <kbd>Ctrl</kbd>+<kbd>V</kbd> 붙여넣기
+            </p>
             <div class="btn-wrap">
                 <button onclick="parseDaejin()"><span>🔍</span> 과제 마감일 추출하기</button>
             </div>
+            <div class="debug-box" id="debugBox"></div>
             <div class="result-section" id="resultSection">
                 <div class="result-header">
-                    <div class="result-title">📅 추출된 과제 목록 <span class="result-count" id="resultCount">0</span></div>
+                    <div class="result-title">📅 추출된 과제 <span class="result-count" id="resultCount">0</span></div>
                 </div>
                 <div id="taskList">
                     <div class="empty-state"><div class="empty-icon">📭</div><p>위에 텍스트를 붙여넣고 버튼을 눌러주세요.</p></div>
@@ -113,108 +115,203 @@
         </div>
     </div>
 </main>
-
 <footer>
     <div class="footer-links">
-        <span>대진대학교</span><span>·</span><span>e-Class 갓생 비서 v2.1</span><span>·</span><span>Made with 💙</span>
+        <span>대진대학교</span><span>·</span><span>e-Class 갓생 비서 v2.2</span><span>·</span><span>Made with 💙</span>
     </div>
 </footer>
 
 <script>
-// ── 날짜 파싱 ──────────────────────────────────────
+// ────────────────────────────────────────────────────────
+// 날짜 유틸
+// ────────────────────────────────────────────────────────
 function parseDate(str) {
     if (!str) return null;
-    // YYYY-MM-DD HH:MM or YYYY-MM-DD
-    let m = str.match(/(\d{4})-(\d{2})-(\d{2})(?:\s+(\d{2}):(\d{2}))?/);
-    if (m) {
-        const d = new Date(+m[1], +m[2]-1, +m[3], m[4]?+m[4]:0, m[5]?+m[5]:0);
-        return isNaN(d) ? null : d;
-    }
-    // YY.MM.DD
-    m = str.match(/(\d{2})\.(\d{2})\.(\d{2})/);
-    if (m) {
-        const d = new Date(2000+parseInt(m[1]), +m[2]-1, +m[3]);
-        return isNaN(d) ? null : d;
-    }
-    // MM월 DD일
-    m = str.match(/(\d{1,2})월\s*(\d{1,2})일/);
-    if (m) {
-        const d = new Date(new Date().getFullYear(), +m[1]-1, +m[2]);
-        return isNaN(d) ? null : d;
-    }
-    return null;
+    // "2026-05-13 00:00" or "2026-05-13"
+    const m = str.match(/(\d{4})-(\d{2})-(\d{2})(?:[\sT]+(\d{2}):(\d{2}))?/);
+    if (!m) return null;
+    return new Date(+m[1], +m[2]-1, +m[3], m[4]?+m[4]:0, m[5]?+m[5]:0);
 }
 
 function formatKo(d) {
-    if (!d) return '날짜 미상';
+    if (!d || isNaN(d)) return '날짜 미상';
     const wd = ['일','월','화','수','목','금','토'][d.getDay()];
-    const hm = d.getHours() || d.getMinutes()
+    const hm = (d.getHours() || d.getMinutes())
         ? ` ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`
         : '';
     return `${d.getFullYear()}년 ${d.getMonth()+1}월 ${d.getDate()}일 (${wd})${hm}`;
 }
 
 function getDanger(d) {
-    if (!d) return 'safe';
+    if (!d || isNaN(d)) return 'safe';
     const now = new Date(); now.setHours(0,0,0,0);
-    const t = new Date(d); t.setHours(0,0,0,0);
+    const t   = new Date(d); t.setHours(0,0,0,0);
     const diff = Math.ceil((t - now) / 864e5);
     if (diff < -1) return 'safe';
-    if (diff <= 2)  return 'urgent';
-    if (diff <= 7)  return 'warning';
+    if (diff <= 2) return 'urgent';
+    if (diff <= 7) return 'warning';
     return 'safe';
 }
 
-function getLabelText(l) {
+function labelOf(l) {
     return l==='urgent'?'🚨 긴급':l==='warning'?'⚠️ 임박':'✅ 여유';
 }
 
-function gcalLink(task, idx) {
+function gcalLink(task) {
     const title = encodeURIComponent(`[${task.subject||'대진대'}] ${task.name} 마감`);
-    const details = encodeURIComponent(`과목: ${task.subject||'-'}\n과제: ${task.name}\n종류: ${task.type||'과제'}`);
+    const details = encodeURIComponent(`과목: ${task.subject||'-'}\n과제: ${task.name}\n종류: ${task.type}`);
     const d = task.dateObj;
     let dates = '';
-    if (d) {
-        const pad = n => String(n).padStart(2,'0');
+    if (d && !isNaN(d)) {
+        const p = n => String(n).padStart(2,'0');
         if (d.getHours() || d.getMinutes()) {
-            const fmt = dt => `${dt.getFullYear()}${pad(dt.getMonth()+1)}${pad(dt.getDate())}T${pad(dt.getHours())}${pad(dt.getMinutes())}00`;
-            const end = new Date(d.getTime() + 36e5);
+            const fmt = dt => `${dt.getFullYear()}${p(dt.getMonth()+1)}${p(dt.getDate())}T${p(dt.getHours())}${p(dt.getMinutes())}00`;
+            const end = new Date(d.getTime()+36e5);
             dates = `${fmt(d)}/${fmt(end)}`;
         } else {
-            const s = `${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}`;
+            const s = `${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}`;
             const nd = new Date(d); nd.setDate(nd.getDate()+1);
-            const e = `${nd.getFullYear()}${pad(nd.getMonth()+1)}${pad(nd.getDate())}`;
-            dates = `${s}/${e}`;
+            dates = `${s}/${nd.getFullYear()}${p(nd.getMonth()+1)}${p(nd.getDate())}`;
         }
     }
     return `https://www.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${dates}&details=${details}`;
 }
 
-// ── e-Class 스마트 파서 ─────────────────────────────
+function esc(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ────────────────────────────────────────────────────────
+// 핵심 파서 — 원문 전체를 정규식으로 직접 탐색
+// ────────────────────────────────────────────────────────
+function extractTasks(raw) {
+    const tasks = [];
+    const seenDates = new Set();
+    const debugLines = [];
+
+    // ── 과목명 추출
+    //  예) "생성형AI를활용한문화콘텐츠제작[01]"
+    let subject = null;
+    const subjectMatch = raw.match(/([가-힣a-zA-Z0-9\s·&]+)\[0\d\]/);
+    if (subjectMatch) subject = subjectMatch[1].trim();
+    debugLines.push(`[subject] ${subject || '없음'}`);
+
+    // ── 마감일 추출
+    // 전략: "종료 일시" / "마감" 등의 키워드 뒤 ~80자 이내에서 날짜를 찾는다.
+    // 탭, 공백, 개행 모두 허용 (\s+)
+    const deadlinePattern = /(?:종료\s*일시|마감\s*일시|마감일|마감\s*기한|제출\s*기한|기한|deadline)\s*[:：]?\s*(\d{4}-\d{2}-\d{2}(?:[\s]+\d{2}:\d{2})?)/gi;
+
+    let m;
+    while ((m = deadlinePattern.exec(raw)) !== null) {
+        const rawDate = m[1].trim();
+        if (seenDates.has(rawDate)) continue;
+        seenDates.add(rawDate);
+
+        const dateObj = parseDate(rawDate);
+        debugLines.push(`[deadline found] "${rawDate}" → ${dateObj}`);
+
+        // 이 매칭 위치(m.index) 앞 ~500자에서 과제명 추출
+        const beforeText = raw.substring(Math.max(0, m.index - 500), m.index);
+        const name = extractName(beforeText);
+        const type = guessType(beforeText + m[0]);
+
+        tasks.push({ name, subject, type, dateObj });
+    }
+
+    // ── 폴백: 마감 키워드가 없을 때 — 모든 YYYY-MM-DD를 찾되
+    //    "게시일·등록일·수정일·시작일" 근처면 제외
+    if (tasks.length === 0) {
+        debugLines.push('[fallback] 마감 키워드 없음 → 전체 날짜 스캔');
+        const allDateRe = /(\d{4}-\d{2}-\d{2}(?:[ \t]+\d{2}:\d{2})?)/g;
+        while ((m = allDateRe.exec(raw)) !== null) {
+            const rawDate = m[1].trim();
+            if (seenDates.has(rawDate)) continue;
+
+            // 앞뒤 60자 컨텍스트
+            const ctx = raw.substring(Math.max(0, m.index-60), m.index+40);
+            if (/게시일|등록일|수정\s*일시|최종\s*수정|시작\s*일시|시작일/.test(ctx)) {
+                debugLines.push(`[skip] "${rawDate}" — 게시/수정/시작 날짜`);
+                continue;
+            }
+            seenDates.add(rawDate);
+
+            const dateObj = parseDate(rawDate);
+            const beforeText = raw.substring(Math.max(0, m.index - 500), m.index);
+            const name = extractName(beforeText);
+            const type = guessType(ctx);
+            debugLines.push(`[fallback date] "${rawDate}" → ${dateObj}`);
+            tasks.push({ name, subject, type, dateObj });
+        }
+    }
+
+    // 날짜 오름차순 정렬
+    tasks.sort((a,b) => (a.dateObj||0)-(b.dateObj||0));
+    return { tasks, debugLines };
+}
+
+// 매칭 위치 앞의 텍스트에서 과제명을 찾는다
+function extractName(beforeText) {
+    // 앞 텍스트를 줄로 분리, 뒤에서부터 의미있는 텍스트 찾기
+    const skipRe = /제출|채점|첨부|파일|상황|일시|마감|수정|댓글|개인정보|CyberCampus|HOME|강의|성적|출석|관리|블록|학습활동|^\d+$|^\s*$/;
+    const lines = beforeText.split(/[\n\r]+/).map(l=>l.replace(/\t/g,' ').trim()).filter(Boolean);
+    for (let i = lines.length-1; i >= 0; i--) {
+        const l = lines[i];
+        if (l.length < 2 || l.length > 80) continue;
+        if (skipRe.test(l)) continue;
+        if (/[가-힣a-zA-Z]/.test(l)) return l;
+    }
+    return '과제';
+}
+
+function guessType(ctx) {
+    if (/퀴즈|quiz/i.test(ctx))       return '퀴즈';
+    if (/토론|discussion/i.test(ctx)) return '토론';
+    if (/리포트|레포트|보고서/i.test(ctx)) return '리포트';
+    if (/출석|attendance/i.test(ctx)) return '출석';
+    return '과제';
+}
+
+// ────────────────────────────────────────────────────────
+// UI
+// ────────────────────────────────────────────────────────
 function parseDaejin() {
     const raw = document.getElementById('rawText').value;
-    const taskList = document.getElementById('taskList');
+    const taskListEl = document.getElementById('taskList');
     const resultSection = document.getElementById('resultSection');
     const resultCount = document.getElementById('resultCount');
+    const debugBox = document.getElementById('debugBox');
 
     if (!raw.trim()) { alert('텍스트를 먼저 붙여넣어 주세요!'); return; }
 
-    // 스텝 초기화
     [2,3].forEach(i => document.getElementById('step'+i).classList.remove('active'));
 
-    const tasks = extractTasks(raw);
+    const { tasks, debugLines } = extractTasks(raw);
 
     document.getElementById('step2').classList.add('active');
     resultCount.textContent = tasks.length;
-    taskList.innerHTML = '';
+    taskListEl.innerHTML = '';
+
+    // 디버그 박스 (과제가 없을 때만 표시)
+    if (tasks.length === 0) {
+        debugBox.innerHTML = '<strong>🔧 디버그 정보</strong><br>' + debugLines.map(esc).join('<br>');
+        debugBox.classList.add('visible');
+    } else {
+        debugBox.classList.remove('visible');
+    }
 
     if (tasks.length === 0) {
-        taskList.innerHTML = `
+        taskListEl.innerHTML = `
             <div class="empty-state">
                 <div class="empty-icon">❓</div>
-                <p>과제 마감일을 찾지 못했습니다.<br>
-                e-Class 과제 페이지에서 <strong>전체 선택(Ctrl+A)</strong> 후 복사해 주세요.<br>
-                <small style="color:#bbb;margin-top:6px;display:block;">인식 가능: 종료일시·마감일·제출기한 등이 포함된 e-Class 텍스트</small></p>
+                <p>
+                    과제 마감일을 찾지 못했습니다.<br><br>
+                    <strong>e-Class 과제 페이지</strong>에서<br>
+                    <kbd style="background:#eef0f8;border:1px solid #d0d9f0;border-radius:4px;padding:1px 5px;font-family:monospace">Ctrl+A</kbd>
+                    전체선택 후 복사해서 붙여넣어 주세요.<br>
+                    <span style="font-size:11px;color:#bbb;margin-top:8px;display:block">
+                        아래 디버그 정보를 캡처해 공유하면 추가 개선이 가능합니다.
+                    </span>
+                </p>
             </div>`;
     } else {
         tasks.forEach((task, i) => {
@@ -225,133 +322,24 @@ function parseDaejin() {
             card.innerHTML = `
                 <div class="task-stripe ${level}"></div>
                 <div class="task-content">
-                    <div class="task-index">과제 #${String(i+1).padStart(2,'0')} · ${task.type}</div>
-                    <div class="task-name">${escHtml(task.name)}</div>
+                    <div class="task-index">과제 #${String(i+1).padStart(2,'0')} · ${esc(task.type)}</div>
+                    <div class="task-name">${esc(task.name)}</div>
                     <div class="task-meta">
-                        ${task.subject ? `<span class="task-meta-chip">📚 ${escHtml(task.subject)}</span>` : ''}
+                        ${task.subject?`<span class="task-meta-chip">📚 ${esc(task.subject)}</span>`:''}
                         <span>🗓 ${formatKo(task.dateObj)}</span>
                     </div>
                 </div>
                 <div class="task-actions">
-                    <div class="task-badge badge-${level}">${getLabelText(level)}</div>
-                    <a href="${gcalLink(task, i)}" target="_blank" class="calendar-btn">🗓 캘린더 등록</a>
+                    <div class="task-badge badge-${level}">${labelOf(level)}</div>
+                    <a href="${gcalLink(task)}" target="_blank" class="calendar-btn">🗓 캘린더 등록</a>
                 </div>`;
-            taskList.appendChild(card);
+            taskListEl.appendChild(card);
         });
         setTimeout(() => document.getElementById('step3').classList.add('active'), tasks.length * 70 + 100);
     }
 
     resultSection.classList.add('visible');
-    setTimeout(() => resultSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 120);
-}
-
-function escHtml(s) {
-    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
-
-// ── 핵심 추출 로직 ─────────────────────────────────
-function extractTasks(raw) {
-    const lines = raw.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
-    const tasks = [];
-    const seen = new Set(); // 중복 방지
-
-    // 과목명 추출 (CyberCampus/과목 헤더 근처)
-    let globalSubject = null;
-    for (const line of lines) {
-        // 과목명 패턴: 한글+영문+숫자 섞인 긴 과목명 (bracket 과 [01] 스타일)
-        if (/^[가-힣a-zA-Z0-9\s]+\[\d+\]$/.test(line) && line.length > 5) {
-            globalSubject = line.replace(/\[\d+\]$/, '').trim();
-            break;
-        }
-    }
-
-    // ─── 방법 1: "종료 일시" / "마감" 키워드 기반 추출 ───
-    // e-Class는 "종료 일시\t2026-05-13 00:00" 또는 "마감일\t2026-05-13" 등으로 나옴
-    const deadlineKeywords = /종료\s*일시|마감\s*일시|마감일|제출\s*기한|종료일|deadline/i;
-    const ignoreKeywords   = /게시일|등록일|시작일|시작\s*일시|수정\s*일시|최종\s*수정/i;
-
-    for (let i = 0; i < lines.length; i++) {
-        const line = lines[i];
-
-        // 마감 관련 라인 찾기
-        if (!deadlineKeywords.test(line) || ignoreKeywords.test(line)) continue;
-
-        // 같은 라인이나 다음 라인에서 날짜 추출
-        const combined = line + ' ' + (lines[i+1] || '');
-        const dateMatch = combined.match(/\d{4}-\d{2}-\d{2}(?:\s+\d{2}:\d{2})?/);
-        if (!dateMatch) continue;
-
-        const dateObj = parseDate(dateMatch[0]);
-        if (!dateObj) continue;
-
-        const key = dateMatch[0];
-        if (seen.has(key)) continue;
-        seen.add(key);
-
-        // 과제명 찾기: 마감 라인보다 앞쪽에서 가장 가까운 의미있는 텍스트
-        const name = findTaskName(lines, i);
-        // 과목명 찾기: 마감 라인 앞쪽 탐색
-        const subject = findSubject(lines, i) || globalSubject;
-        // 종류 판별
-        const type = guessType(lines, i, name);
-
-        tasks.push({ name, subject, type, dateObj });
-    }
-
-    // ─── 방법 2: "제출 기한" 없어도 날짜만 있는 경우 폴백 ───
-    if (tasks.length === 0) {
-        const dateRe = /\d{4}-\d{2}-\d{2}(?:\s+\d{2}:\d{2})?/g;
-        const allMatches = [...raw.matchAll(dateRe)];
-        allMatches.forEach((m, i) => {
-            // 날짜 근처 줄에 마감 냄새 나는 키워드가 있는지 확인
-            const ctx = raw.substring(Math.max(0, m.index-60), m.index+40);
-            if (ignoreKeywords.test(ctx)) return; // 게시일 등은 무시
-            const dateObj = parseDate(m[0]);
-            if (!dateObj || seen.has(m[0])) return;
-            seen.add(m[0]);
-            tasks.push({
-                name: '과제 ' + (i+1),
-                subject: globalSubject,
-                type: '과제',
-                dateObj
-            });
-        });
-    }
-
-    // 마감일 오름차순 정렬
-    tasks.sort((a,b) => (a.dateObj||0) - (b.dateObj||0));
-    return tasks;
-}
-
-function findTaskName(lines, deadlineIdx) {
-    // 마감 라인 위로 탐색 — 첫 번째로 나오는 의미있는 제목 텍스트
-    const skipPatterns = /제출|채점|첨부|상황|일시|마감|수정|댓글|개인정보|CyberCampus|HOME|강의|성적|출석|관리|^\d+$/;
-    for (let j = deadlineIdx - 1; j >= Math.max(0, deadlineIdx - 15); j--) {
-        const l = lines[j];
-        if (l.length < 2 || skipPatterns.test(l)) continue;
-        if (/[가-힣a-zA-Z]/.test(l) && l.length <= 60) return l;
-    }
-    return '과제';
-}
-
-function findSubject(lines, deadlineIdx) {
-    // 과목명 패턴 탐색 (예: "생성형AI를활용한문화콘텐츠제작[01]")
-    for (let j = 0; j < deadlineIdx; j++) {
-        const l = lines[j];
-        if (/^[가-힣a-zA-Z0-9\s]+\[\d+\]/.test(l) && l.length > 5) {
-            return l.replace(/\[\d+\].*$/, '').trim();
-        }
-    }
-    return null;
-}
-
-function guessType(lines, deadlineIdx, name) {
-    const ctx = lines.slice(Math.max(0, deadlineIdx-10), deadlineIdx+2).join(' ') + ' ' + name;
-    if (/퀴즈|quiz/i.test(ctx))   return '퀴즈';
-    if (/토론|discussion/i.test(ctx)) return '토론';
-    if (/리포트|레포트|보고서/i.test(ctx)) return '리포트';
-    if (/출석|attendance/i.test(ctx)) return '출석';
-    return '과제';
+    setTimeout(() => resultSection.scrollIntoView({ behavior:'smooth', block:'nearest' }), 120);
 }
 </script>
 </body>
