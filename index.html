@@ -7,594 +7,107 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --navy: #001f4d;
-            --navy-mid: #002d6e;
-            --blue: #0047b3;
-            --accent: #ff3b3b;
-            --accent-soft: #ff6b6b;
-            --gold: #ffc947;
-            --white: #ffffff;
-            --off-white: #f7f8fc;
-            --gray-light: #eef0f8;
-            --gray: #9aa0b8;
-            --text: #1a1e2e;
+            --navy: #001f4d; --navy-mid: #002d6e; --blue: #0047b3;
+            --accent: #ff3b3b; --gold: #ffc947; --white: #ffffff;
+            --off-white: #f7f8fc; --gray-light: #eef0f8; --gray: #9aa0b8; --text: #1a1e2e;
         }
-
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-        body {
-            font-family: 'Noto Sans KR', sans-serif;
-            background-color: var(--navy);
-            min-height: 100vh;
-            color: var(--text);
-            overflow-x: hidden;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        body::after {
-            content: '';
-            position: fixed;
-            top: -20%;
-            right: -10%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(0,71,179,0.35) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 0;
-            animation: blobPulse 8s ease-in-out infinite;
-        }
-
-        @keyframes blobPulse {
-            0%, 100% { transform: scale(1) translate(0,0); }
-            50% { transform: scale(1.15) translate(-30px, 30px); }
-        }
-
-        header {
-            position: relative;
-            z-index: 10;
-            padding: 40px 24px 0;
-            max-width: 700px;
-            margin: 0 auto;
-            animation: slideDown 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
-        }
-
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-24px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 100px;
-            padding: 5px 14px;
-            font-size: 11px;
-            font-weight: 500;
-            color: var(--gold);
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            backdrop-filter: blur(8px);
-        }
-
-        .badge-dot {
-            width: 6px;
-            height: 6px;
-            background: var(--gold);
-            border-radius: 50%;
-            animation: blink 1.4s ease-in-out infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.2; }
-        }
-
-        h1 {
-            font-size: clamp(26px, 5vw, 38px);
-            font-weight: 900;
-            color: var(--white);
-            line-height: 1.2;
-            letter-spacing: -0.02em;
-        }
-
-        h1 em {
-            font-style: normal;
-            color: var(--gold);
-        }
-
-        header p {
-            color: rgba(255,255,255,0.7);
-            font-size: 13.5px;
-            font-weight: 300;
-            margin-top: 10px;
-            line-height: 1.7;
-        }
-
-        main {
-            position: relative;
-            z-index: 10;
-            max-width: 700px;
-            margin: 28px auto 48px;
-            padding: 0 24px;
-            animation: slideUp 0.7s 0.15s cubic-bezier(0.22, 1, 0.36, 1) both;
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(28px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        .card {
-            background: var(--white);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow:
-                0 0 0 1px rgba(0,0,0,0.06),
-                0 24px 64px rgba(0,0,0,0.3);
-        }
-
-        .step-bar {
-            background: var(--off-white);
-            border-bottom: 1px solid var(--gray-light);
-            padding: 14px 24px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .step {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 11.5px;
-            font-weight: 600;
-            color: var(--gray);
-            letter-spacing: 0.02em;
-            transition: color 0.3s;
-        }
-
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: var(--navy); min-height: 100vh; color: var(--text); overflow-x: hidden; }
+        body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; z-index: 0; }
+        body::after { content: ''; position: fixed; top: -20%; right: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(0,71,179,0.35) 0%, transparent 70%); border-radius: 50%; pointer-events: none; z-index: 0; animation: blobPulse 8s ease-in-out infinite; }
+        @keyframes blobPulse { 0%,100%{transform:scale(1) translate(0,0)} 50%{transform:scale(1.15) translate(-30px,30px)} }
+        header { position: relative; z-index: 10; padding: 40px 24px 0; max-width: 700px; margin: 0 auto; animation: slideDown 0.7s cubic-bezier(0.22,1,0.36,1) both; }
+        @keyframes slideDown { from{opacity:0;transform:translateY(-24px)} to{opacity:1;transform:translateY(0)} }
+        .badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 100px; padding: 5px 14px; font-size: 11px; font-weight: 500; color: var(--gold); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 20px; backdrop-filter: blur(8px); }
+        .badge-dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; animation: blink 1.4s ease-in-out infinite; }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+        h1 { font-size: clamp(26px,5vw,38px); font-weight: 900; color: var(--white); line-height: 1.2; letter-spacing: -0.02em; }
+        h1 em { font-style: normal; color: var(--gold); }
+        header p { color: rgba(255,255,255,0.7); font-size: 13.5px; font-weight: 300; margin-top: 10px; line-height: 1.7; }
+        main { position: relative; z-index: 10; max-width: 700px; margin: 28px auto 48px; padding: 0 24px; animation: slideUp 0.7s 0.15s cubic-bezier(0.22,1,0.36,1) both; }
+        @keyframes slideUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+        .card { background: var(--white); border-radius: 20px; overflow: hidden; box-shadow: 0 0 0 1px rgba(0,0,0,0.06), 0 24px 64px rgba(0,0,0,0.3); }
+        .step-bar { background: var(--off-white); border-bottom: 1px solid var(--gray-light); padding: 14px 24px; display: flex; align-items: center; gap: 10px; }
+        .step { display: flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 600; color: var(--gray); transition: color 0.3s; }
         .step.active { color: var(--blue); }
-
-        .step-num {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: var(--gray-light);
-            color: var(--gray);
-            font-size: 10px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Space Mono', monospace;
-            transition: all 0.3s;
-        }
-
-        .step.active .step-num {
-            background: var(--blue);
-            color: var(--white);
-        }
-
-        .step-sep {
-            flex: 1;
-            height: 1px;
-            background: var(--gray-light);
-        }
-
+        .step-num { width: 20px; height: 20px; border-radius: 50%; background: var(--gray-light); color: var(--gray); font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; font-family: 'Space Mono', monospace; transition: all 0.3s; }
+        .step.active .step-num { background: var(--blue); color: var(--white); }
+        .step-sep { flex: 1; height: 1px; background: var(--gray-light); }
         .card-body { padding: 28px 28px 32px; }
-
-        .label {
-            display: block;
-            font-size: 11.5px;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--gray);
-            margin-bottom: 8px;
-        }
-
-        textarea {
-            width: 100%;
-            min-height: 140px;
-            border: 2px solid var(--gray-light);
-            border-radius: 12px;
-            padding: 14px 16px;
-            font-size: 13.5px;
-            font-family: 'Noto Sans KR', sans-serif;
-            color: var(--text);
-            background: var(--off-white);
-            resize: vertical;
-            outline: none;
-            transition: border-color 0.2s, box-shadow 0.2s;
-            line-height: 1.7;
-        }
-
+        .label { display: block; font-size: 11.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); margin-bottom: 8px; }
+        textarea { width: 100%; min-height: 140px; border: 2px solid var(--gray-light); border-radius: 12px; padding: 14px 16px; font-size: 13.5px; font-family: 'Noto Sans KR', sans-serif; color: var(--text); background: var(--off-white); resize: vertical; outline: none; transition: border-color 0.2s, box-shadow 0.2s; line-height: 1.7; }
         textarea::placeholder { color: var(--gray); }
-
-        textarea:focus {
-            border-color: var(--blue);
-            box-shadow: 0 0 0 4px rgba(0,71,179,0.1);
-            background: var(--white);
-        }
-
-        .hint {
-            margin-top: 8px;
-            font-size: 11.5px;
-            color: var(--gray);
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .hint kbd {
-            background: var(--gray-light);
-            border: 1px solid #dde0eb;
-            border-radius: 4px;
-            padding: 1px 5px;
-            font-size: 10.5px;
-            font-family: 'Space Mono', monospace;
-            color: var(--text);
-        }
-
+        textarea:focus { border-color: var(--blue); box-shadow: 0 0 0 4px rgba(0,71,179,0.1); background: var(--white); }
+        .hint { margin-top: 8px; font-size: 11.5px; color: var(--gray); display: flex; align-items: center; gap: 5px; }
+        .hint kbd { background: var(--gray-light); border: 1px solid #dde0eb; border-radius: 4px; padding: 1px 5px; font-size: 10.5px; font-family: 'Space Mono', monospace; color: var(--text); }
         .btn-wrap { margin-top: 20px; }
-
-        button {
-            width: 100%;
-            padding: 16px;
-            background: var(--navy);
-            color: var(--white);
-            border: none;
-            border-radius: 12px;
-            font-size: 15px;
-            font-weight: 700;
-            font-family: 'Noto Sans KR', sans-serif;
-            cursor: pointer;
-            letter-spacing: 0.02em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
-            box-shadow: 0 4px 20px rgba(0,31,77,0.3);
-        }
-
-        button::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 60%);
-            pointer-events: none;
-        }
-
-        button:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 28px rgba(0,31,77,0.4);
-            background: var(--navy-mid);
-        }
-
-        button:active:not(:disabled) { transform: translateY(0); }
-
-        button:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-        }
-
-        .btn-icon { font-size: 18px; }
-
-        /* Loading spinner */
-        .spinner {
-            display: inline-block;
-            width: 18px;
-            height: 18px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-top-color: #fff;
-            border-radius: 50%;
-            animation: spin 0.75s linear infinite;
-            flex-shrink: 0;
-        }
-
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* AI status bar */
-        .ai-status {
-            margin-top: 14px;
-            display: none;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 14px;
-            background: rgba(0,71,179,0.07);
-            border-radius: 10px;
-            font-size: 12px;
-            color: var(--blue);
-            font-weight: 500;
-        }
-
-        .ai-status.visible { display: flex; }
-
-        .ai-status-dot {
-            width: 7px;
-            height: 7px;
-            background: var(--blue);
-            border-radius: 50%;
-            animation: blink 1s ease-in-out infinite;
-            flex-shrink: 0;
-        }
-
-        .result-section {
-            margin-top: 28px;
-            opacity: 0;
-            transform: translateY(12px);
-            transition: opacity 0.4s, transform 0.4s;
-            pointer-events: none;
-        }
-
-        .result-section.visible {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: all;
-        }
-
-        .result-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 14px;
-        }
-
-        .result-title {
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--text);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .result-count {
-            background: var(--navy);
-            color: var(--white);
-            font-size: 10.5px;
-            font-weight: 700;
-            font-family: 'Space Mono', monospace;
-            padding: 2px 8px;
-            border-radius: 100px;
-        }
-
+        button { width: 100%; padding: 16px; background: var(--navy); color: var(--white); border: none; border-radius: 12px; font-size: 15px; font-weight: 700; font-family: 'Noto Sans KR', sans-serif; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; position: relative; overflow: hidden; transition: transform 0.15s, box-shadow 0.15s, background 0.15s; box-shadow: 0 4px 20px rgba(0,31,77,0.3); }
+        button::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 60%); pointer-events: none; }
+        button:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,31,77,0.4); background: var(--navy-mid); }
+        button:active { transform: translateY(0); }
+        .result-section { margin-top: 28px; opacity: 0; transform: translateY(12px); transition: opacity 0.4s, transform 0.4s; pointer-events: none; }
+        .result-section.visible { opacity: 1; transform: translateY(0); pointer-events: all; }
+        .result-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+        .result-title { font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text); display: flex; align-items: center; gap: 6px; }
+        .result-count { background: var(--navy); color: var(--white); font-size: 10.5px; font-weight: 700; font-family: 'Space Mono', monospace; padding: 2px 8px; border-radius: 100px; }
         #taskList { display: flex; flex-direction: column; gap: 10px; }
-
-        .task-card {
-            display: flex;
-            align-items: stretch;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid var(--gray-light);
-            background: var(--white);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            animation: cardIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
-            transition: box-shadow 0.2s, transform 0.2s;
-        }
-
-        .task-card:hover {
-            box-shadow: 0 4px 18px rgba(0,0,0,0.1);
-            transform: translateY(-1px);
-        }
-
-        @keyframes cardIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
+        .task-card { display: flex; align-items: stretch; border-radius: 12px; overflow: hidden; border: 1px solid var(--gray-light); background: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.05); animation: cardIn 0.4s cubic-bezier(0.22,1,0.36,1) both; transition: box-shadow 0.2s, transform 0.2s; }
+        .task-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.1); transform: translateY(-1px); }
+        @keyframes cardIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
         .task-stripe { width: 4px; flex-shrink: 0; }
-        .urgent  { background: var(--accent); }
+        .urgent { background: var(--accent); }
         .warning { background: var(--gold); }
-        .safe    { background: #34c759; }
-
+        .safe { background: #34c759; }
         .task-content { flex: 1; padding: 14px 16px; }
-
-        .task-index {
-            font-size: 10px;
-            font-weight: 700;
-            font-family: 'Space Mono', monospace;
-            color: var(--gray);
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            margin-bottom: 4px;
-        }
-
-        .task-name {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 4px;
-        }
-
-        .task-meta {
-            font-size: 11.5px;
-            color: var(--gray);
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            align-items: center;
-        }
-
-        .task-meta-chip {
-            background: var(--gray-light);
-            padding: 2px 7px;
-            border-radius: 100px;
-            font-size: 10.5px;
-            font-weight: 500;
-        }
-
-        .task-actions {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            justify-content: center;
-            gap: 6px;
-            padding: 10px 12px 10px 0;
-        }
-
-        .task-badge {
-            font-size: 10.5px;
-            font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 100px;
-            letter-spacing: 0.04em;
-            white-space: nowrap;
-        }
-
-        .badge-urgent  { background: #fff0f0; color: var(--accent); }
+        .task-index { font-size: 10px; font-weight: 700; font-family: 'Space Mono', monospace; color: var(--gray); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
+        .task-name { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 5px; }
+        .task-meta { font-size: 11.5px; color: var(--gray); display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+        .task-meta-chip { background: var(--gray-light); padding: 2px 8px; border-radius: 100px; font-size: 10.5px; font-weight: 500; color: var(--text); }
+        .task-actions { display: flex; flex-direction: column; align-items: flex-end; justify-content: center; gap: 6px; padding: 10px 12px 10px 0; flex-shrink: 0; }
+        .task-badge { font-size: 10.5px; font-weight: 700; padding: 4px 10px; border-radius: 100px; letter-spacing: 0.04em; white-space: nowrap; }
+        .badge-urgent { background: #fff0f0; color: var(--accent); }
         .badge-warning { background: #fffbea; color: #b07d00; }
-        .badge-safe    { background: #edfaf2; color: #1a8f3e; }
-
-        .calendar-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-            background-color: var(--blue);
-            color: var(--white);
-            text-decoration: none;
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 11.5px;
-            font-weight: 600;
-            transition: background-color 0.15s, transform 0.15s;
-            white-space: nowrap;
-        }
-
-        .calendar-btn:hover {
-            background-color: var(--navy-mid);
-            transform: translateY(-1px);
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 32px 20px;
-            color: var(--gray);
-        }
-
+        .badge-safe { background: #edfaf2; color: #1a8f3e; }
+        .calendar-btn { display: inline-flex; align-items: center; justify-content: center; gap: 5px; background-color: var(--blue); color: var(--white); text-decoration: none; padding: 6px 12px; border-radius: 8px; font-size: 11.5px; font-weight: 600; transition: background-color 0.15s, transform 0.15s; white-space: nowrap; }
+        .calendar-btn:hover { background-color: var(--navy-mid); transform: translateY(-1px); }
+        .empty-state { text-align: center; padding: 32px 20px; color: var(--gray); }
         .empty-state .empty-icon { font-size: 36px; margin-bottom: 10px; }
         .empty-state p { font-size: 13.5px; line-height: 1.6; }
-
-        /* Error box */
-        .error-box {
-            background: #fff5f5;
-            border: 1px solid #ffd0d0;
-            border-radius: 10px;
-            padding: 14px 16px;
-            font-size: 12.5px;
-            color: #c0392b;
-            line-height: 1.6;
-        }
-
-        footer {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            padding: 0 24px 40px;
-            animation: slideUp 0.7s 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
-        }
-
-        .footer-links {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            font-size: 11.5px;
-            color: rgba(255,255,255,0.3);
-        }
-
-        .footer-links span { color: rgba(255,255,255,0.12); }
+        footer { position: relative; z-index: 10; text-align: center; padding: 0 24px 40px; animation: slideUp 0.7s 0.3s cubic-bezier(0.22,1,0.36,1) both; }
+        .footer-links { display: flex; align-items: center; justify-content: center; gap: 20px; font-size: 11.5px; color: rgba(255,255,255,0.3); }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="badge">
-        <span class="badge-dot"></span>
-        대진대학교 e-Class 연동
-    </div>
+    <div class="badge"><span class="badge-dot"></span> 대진대학교 e-Class 연동</div>
     <h1>과제 <em>자동</em><br>리마인더 비서</h1>
-    <p>e-Class 공지·과제 화면을 복사해 붙여넣으면<br>AI가 과제명과 마감일을 정확하게 추출해 캘린더에 등록합니다.</p>
+    <p>e-Class 공지·과제 화면을 복사해 붙여넣으면<br>과제명과 마감일을 자동으로 추출해 캘린더에 등록합니다.</p>
 </header>
 
 <main>
     <div class="card">
         <div class="step-bar">
-            <div class="step active" id="step1">
-                <div class="step-num">1</div>
-                텍스트 붙여넣기
-            </div>
+            <div class="step active" id="step1"><div class="step-num">1</div>텍스트 붙여넣기</div>
             <div class="step-sep"></div>
-            <div class="step" id="step2">
-                <div class="step-num">2</div>
-                AI 분석 중
-            </div>
+            <div class="step" id="step2"><div class="step-num">2</div>과제 추출</div>
             <div class="step-sep"></div>
-            <div class="step" id="step3">
-                <div class="step-num">3</div>
-                등록 완료
-            </div>
+            <div class="step" id="step3"><div class="step-num">3</div>등록 완료</div>
         </div>
 
         <div class="card-body">
             <label class="label" for="rawText">📋 e-Class 화면 텍스트</label>
-            <textarea
-                id="rawText"
-                placeholder="e-Class 과제 또는 공지사항 페이지에서 전체 복사 후(Ctrl+A → Ctrl+C) 여기에 붙여넣으세요(Ctrl+V)"
-            ></textarea>
-            <p class="hint">
-                <span>💡 팁:</span>
-                <kbd>Ctrl</kbd>+<kbd>A</kbd>로 전체 선택 후
-                <kbd>Ctrl</kbd>+<kbd>C</kbd> 복사, 여기에
-                <kbd>Ctrl</kbd>+<kbd>V</kbd> 붙여넣기
-            </p>
-
+            <textarea id="rawText" placeholder="e-Class 과제·공지 페이지에서 전체 선택(Ctrl+A) 후 복사(Ctrl+C), 여기에 붙여넣기(Ctrl+V)"></textarea>
+            <p class="hint"><span>💡 팁:</span><kbd>Ctrl</kbd>+<kbd>A</kbd> 전체선택 → <kbd>Ctrl</kbd>+<kbd>C</kbd> 복사 → <kbd>Ctrl</kbd>+<kbd>V</kbd> 붙여넣기</p>
             <div class="btn-wrap">
-                <button id="mainBtn" onclick="parseDaejinLMS()">
-                    <span class="btn-icon">🔍</span>
-                    과제 마감일 추출하기
-                </button>
+                <button onclick="parseDaejin()"><span>🔍</span> 과제 마감일 추출하기</button>
             </div>
-
-            <div class="ai-status" id="aiStatus">
-                <span class="ai-status-dot"></span>
-                <span id="aiStatusText">AI가 과제 정보를 분석하고 있습니다…</span>
-            </div>
-
             <div class="result-section" id="resultSection">
                 <div class="result-header">
-                    <div class="result-title">
-                        📅 추출된 과제 목록
-                        <span class="result-count" id="resultCount">0</span>
-                    </div>
+                    <div class="result-title">📅 추출된 과제 목록 <span class="result-count" id="resultCount">0</span></div>
                 </div>
                 <div id="taskList">
-                    <div class="empty-state">
-                        <div class="empty-icon">📭</div>
-                        <p>아직 추출된 과제가 없습니다.<br>위에 텍스트를 붙여넣고 버튼을 눌러주세요.</p>
-                    </div>
+                    <div class="empty-state"><div class="empty-icon">📭</div><p>위에 텍스트를 붙여넣고 버튼을 눌러주세요.</p></div>
                 </div>
             </div>
         </div>
@@ -603,223 +116,243 @@
 
 <footer>
     <div class="footer-links">
-        <span>대진대학교</span>
-        <span>·</span>
-        <span>e-Class 갓생 비서 v2.0</span>
-        <span>·</span>
-        <span>Powered by Claude AI 💙</span>
+        <span>대진대학교</span><span>·</span><span>e-Class 갓생 비서 v2.1</span><span>·</span><span>Made with 💙</span>
     </div>
 </footer>
 
 <script>
-    // ── 유틸 함수 ──────────────────────────────────────────────
-
-    function getDanger(dateStr) {
-        if (!dateStr) return 'safe';
-        const target = new Date(dateStr);
-        if (isNaN(target)) return 'safe';
-        const now = new Date();
-        now.setHours(0, 0, 0, 0);
-        target.setHours(0, 0, 0, 0);
-        const diff = Math.ceil((target - now) / (1000 * 60 * 60 * 24));
-        if (diff < -1) return 'safe';
-        if (diff <= 2)  return 'urgent';
-        if (diff <= 7)  return 'warning';
-        return 'safe';
+// ── 날짜 파싱 ──────────────────────────────────────
+function parseDate(str) {
+    if (!str) return null;
+    // YYYY-MM-DD HH:MM or YYYY-MM-DD
+    let m = str.match(/(\d{4})-(\d{2})-(\d{2})(?:\s+(\d{2}):(\d{2}))?/);
+    if (m) {
+        const d = new Date(+m[1], +m[2]-1, +m[3], m[4]?+m[4]:0, m[5]?+m[5]:0);
+        return isNaN(d) ? null : d;
     }
-
-    function getLabelText(level) {
-        if (level === 'urgent')  return '🚨 긴급';
-        if (level === 'warning') return '⚠️ 임박';
-        return '✅ 여유';
+    // YY.MM.DD
+    m = str.match(/(\d{2})\.(\d{2})\.(\d{2})/);
+    if (m) {
+        const d = new Date(2000+parseInt(m[1]), +m[2]-1, +m[3]);
+        return isNaN(d) ? null : d;
     }
-
-    function formatDateKo(dateStr) {
-        if (!dateStr) return '날짜 미상';
-        const d = new Date(dateStr);
-        if (isNaN(d)) return dateStr;
-        return `${d.getFullYear()}년 ${d.getMonth()+1}월 ${d.getDate()}일`;
+    // MM월 DD일
+    m = str.match(/(\d{1,2})월\s*(\d{1,2})일/);
+    if (m) {
+        const d = new Date(new Date().getFullYear(), +m[1]-1, +m[2]);
+        return isNaN(d) ? null : d;
     }
-
-    function getGoogleCalendarLink(task, index) {
-        const title = encodeURIComponent(`[${task.subject || '대진대'}] ${task.name || `과제 #${index+1}`} 마감`);
-        const details = encodeURIComponent(`과목: ${task.subject || '-'}\n과제: ${task.name || '-'}\ne-Class에서 추출됨`);
-        let datePart = '';
-
-        if (task.deadline) {
-            const d = new Date(task.deadline);
-            if (!isNaN(d)) {
-                // 시간 정보가 있으면 timed event, 없으면 all-day
-                const hasTime = task.deadline.includes('T') || task.deadline.match(/\d{2}:\d{2}/);
-                if (hasTime) {
-                    // e.g. 20250520T235900/20250521T000000
-                    const pad2 = n => String(n).padStart(2,'0');
-                    const fmt = dt => `${dt.getFullYear()}${pad2(dt.getMonth()+1)}${pad2(dt.getDate())}T${pad2(dt.getHours())}${pad2(dt.getMinutes())}00`;
-                    const end = new Date(d.getTime() + 60 * 60 * 1000); // +1h
-                    datePart = `${fmt(d)}/${fmt(end)}`;
-                } else {
-                    const start = d.toISOString().split('T')[0].replace(/-/g, '');
-                    const nextDay = new Date(d); nextDay.setDate(d.getDate() + 1);
-                    const end = nextDay.toISOString().split('T')[0].replace(/-/g, '');
-                    datePart = `${start}/${end}`;
-                }
-            }
-        }
-
-        if (!datePart) {
-            const now = new Date();
-            const s = now.toISOString().split('T')[0].replace(/-/g,'');
-            const e = new Date(now); e.setDate(e.getDate()+1);
-            datePart = `${s}/${e.toISOString().split('T')[0].replace(/-/g,'')}`;
-        }
-
-        return `https://www.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${datePart}&details=${details}`;
-    }
-
-    function setStep(n) {
-        [1,2,3].forEach(i => {
-            document.getElementById(`step${i}`).classList.toggle('active', i <= n);
-        });
-    }
-
-    function setLoading(loading) {
-        const btn = document.getElementById('mainBtn');
-        const status = document.getElementById('aiStatus');
-        btn.disabled = loading;
-        btn.innerHTML = loading
-            ? `<span class="spinner"></span> AI가 분석 중입니다…`
-            : `<span class="btn-icon">🔍</span> 과제 마감일 추출하기`;
-        status.classList.toggle('visible', loading);
-    }
-
-    // ── Claude API 호출 ────────────────────────────────────────
-
-    async function callClaudeAPI(text) {
-        const today = new Date().toISOString().split('T')[0];
-
-        const systemPrompt = `당신은 대진대학교 e-Class(LMS) 텍스트에서 과제 정보를 추출하는 전문가입니다.
-오늘 날짜: ${today}
-
-사용자가 e-Class 페이지에서 복사한 텍스트를 분석해 과제/퀴즈/토론 등의 마감일을 찾아내세요.
-
-반드시 아래 JSON 형식으로만 응답하세요. 다른 텍스트나 마크다운 코드블록은 절대 포함하지 마세요:
-{
-  "tasks": [
-    {
-      "name": "과제명 (없으면 '미상')",
-      "subject": "과목명 (없으면 null)",
-      "type": "과제/퀴즈/토론/기타 중 하나",
-      "deadline": "YYYY-MM-DD 또는 YYYY-MM-DDTHH:MM (마감 시각이 있으면 T 형식으로)",
-      "note": "추가 메모 (없으면 null)"
-    }
-  ],
-  "message": "정상 추출이 안 된 경우에만 메시지를 넣고 없으면 null"
+    return null;
 }
 
-주의사항:
-- 같은 과제가 여러 번 나와도 중복 제거해서 1개만 출력
-- 마감일이 명확하지 않은 항목은 제외
-- 게시일·등록일 등 마감일이 아닌 날짜는 무시
-- 날짜가 전혀 없으면 tasks는 빈 배열로, message에 이유를 설명`;
+function formatKo(d) {
+    if (!d) return '날짜 미상';
+    const wd = ['일','월','화','수','목','금','토'][d.getDay()];
+    const hm = d.getHours() || d.getMinutes()
+        ? ` ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`
+        : '';
+    return `${d.getFullYear()}년 ${d.getMonth()+1}월 ${d.getDate()}일 (${wd})${hm}`;
+}
 
-        const response = await fetch("https://api.anthropic.com/v1/messages", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                model: "claude-sonnet-4-20250514",
-                max_tokens: 1000,
-                system: systemPrompt,
-                messages: [{ role: "user", content: text }]
-            })
-        });
+function getDanger(d) {
+    if (!d) return 'safe';
+    const now = new Date(); now.setHours(0,0,0,0);
+    const t = new Date(d); t.setHours(0,0,0,0);
+    const diff = Math.ceil((t - now) / 864e5);
+    if (diff < -1) return 'safe';
+    if (diff <= 2)  return 'urgent';
+    if (diff <= 7)  return 'warning';
+    return 'safe';
+}
 
-        if (!response.ok) {
-            const err = await response.json().catch(() => ({}));
-            throw new Error(err.error?.message || `API 오류 (${response.status})`);
+function getLabelText(l) {
+    return l==='urgent'?'🚨 긴급':l==='warning'?'⚠️ 임박':'✅ 여유';
+}
+
+function gcalLink(task, idx) {
+    const title = encodeURIComponent(`[${task.subject||'대진대'}] ${task.name} 마감`);
+    const details = encodeURIComponent(`과목: ${task.subject||'-'}\n과제: ${task.name}\n종류: ${task.type||'과제'}`);
+    const d = task.dateObj;
+    let dates = '';
+    if (d) {
+        const pad = n => String(n).padStart(2,'0');
+        if (d.getHours() || d.getMinutes()) {
+            const fmt = dt => `${dt.getFullYear()}${pad(dt.getMonth()+1)}${pad(dt.getDate())}T${pad(dt.getHours())}${pad(dt.getMinutes())}00`;
+            const end = new Date(d.getTime() + 36e5);
+            dates = `${fmt(d)}/${fmt(end)}`;
+        } else {
+            const s = `${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}`;
+            const nd = new Date(d); nd.setDate(nd.getDate()+1);
+            const e = `${nd.getFullYear()}${pad(nd.getMonth()+1)}${pad(nd.getDate())}`;
+            dates = `${s}/${e}`;
         }
-
-        const data = await response.json();
-        const raw = data.content.map(b => b.text || '').join('').trim();
-        // strip potential markdown fences just in case
-        const clean = raw.replace(/^```json\s*/,'').replace(/\s*```$/,'').trim();
-        return JSON.parse(clean);
     }
+    return `https://www.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${dates}&details=${details}`;
+}
 
-    // ── 메인 함수 ──────────────────────────────────────────────
+// ── e-Class 스마트 파서 ─────────────────────────────
+function parseDaejin() {
+    const raw = document.getElementById('rawText').value;
+    const taskList = document.getElementById('taskList');
+    const resultSection = document.getElementById('resultSection');
+    const resultCount = document.getElementById('resultCount');
 
-    async function parseDaejinLMS() {
-        const rawText = document.getElementById('rawText').value.trim();
-        const taskList = document.getElementById('taskList');
-        const resultSection = document.getElementById('resultSection');
-        const resultCount = document.getElementById('resultCount');
+    if (!raw.trim()) { alert('텍스트를 먼저 붙여넣어 주세요!'); return; }
 
-        if (!rawText) {
-            alert("텍스트를 먼저 붙여넣어 주세요!");
-            return;
-        }
+    // 스텝 초기화
+    [2,3].forEach(i => document.getElementById('step'+i).classList.remove('active'));
 
-        setLoading(true);
-        setStep(1);
-        resultSection.classList.remove('visible');
-        taskList.innerHTML = '';
+    const tasks = extractTasks(raw);
 
-        try {
-            setStep(2);
-            const result = await callClaudeAPI(rawText);
+    document.getElementById('step2').classList.add('active');
+    resultCount.textContent = tasks.length;
+    taskList.innerHTML = '';
 
-            const tasks = result.tasks || [];
-            resultCount.textContent = tasks.length;
-
-            if (tasks.length === 0) {
-                taskList.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">❓</div>
-                        <p>${result.message || '과제 정보를 찾지 못했습니다.<br>e-Class 과제·공지 페이지를 복사했는지 확인해 주세요.'}</p>
-                    </div>`;
-            } else {
-                tasks.forEach((task, i) => {
-                    const level = getDanger(task.deadline);
-                    const calLink = getGoogleCalendarLink(task, i);
-                    const card = document.createElement('div');
-                    card.className = 'task-card';
-                    card.style.animationDelay = `${i * 0.07}s`;
-                    card.innerHTML = `
-                        <div class="task-stripe ${level}"></div>
-                        <div class="task-content">
-                            <div class="task-index">과제 #${String(i+1).padStart(2,'0')} · ${task.type || '과제'}</div>
-                            <div class="task-name">${task.name}</div>
-                            <div class="task-meta">
-                                ${task.subject ? `<span class="task-meta-chip">📚 ${task.subject}</span>` : ''}
-                                <span>🗓 ${formatDateKo(task.deadline)}${task.deadline && task.deadline.includes('T') ? ' ' + task.deadline.split('T')[1].slice(0,5) : ''}</span>
-                                ${task.note ? `<span>📌 ${task.note}</span>` : ''}
-                            </div>
-                        </div>
-                        <div class="task-actions">
-                            <div class="task-badge badge-${level}">${getLabelText(level)}</div>
-                            <a href="${calLink}" target="_blank" class="calendar-btn">🗓 캘린더 등록</a>
-                        </div>`;
-                    taskList.appendChild(card);
-                });
-
-                setTimeout(() => setStep(3), tasks.length * 70 + 100);
-            }
-
-        } catch (err) {
-            console.error(err);
-            taskList.innerHTML = `
-                <div class="error-box">
-                    ⚠️ 오류가 발생했습니다: ${err.message}<br><br>
-                    네트워크 연결을 확인하거나, API 키가 올바르게 설정되어 있는지 확인해 주세요.
+    if (tasks.length === 0) {
+        taskList.innerHTML = `
+            <div class="empty-state">
+                <div class="empty-icon">❓</div>
+                <p>과제 마감일을 찾지 못했습니다.<br>
+                e-Class 과제 페이지에서 <strong>전체 선택(Ctrl+A)</strong> 후 복사해 주세요.<br>
+                <small style="color:#bbb;margin-top:6px;display:block;">인식 가능: 종료일시·마감일·제출기한 등이 포함된 e-Class 텍스트</small></p>
+            </div>`;
+    } else {
+        tasks.forEach((task, i) => {
+            const level = getDanger(task.dateObj);
+            const card = document.createElement('div');
+            card.className = 'task-card';
+            card.style.animationDelay = `${i * 0.07}s`;
+            card.innerHTML = `
+                <div class="task-stripe ${level}"></div>
+                <div class="task-content">
+                    <div class="task-index">과제 #${String(i+1).padStart(2,'0')} · ${task.type}</div>
+                    <div class="task-name">${escHtml(task.name)}</div>
+                    <div class="task-meta">
+                        ${task.subject ? `<span class="task-meta-chip">📚 ${escHtml(task.subject)}</span>` : ''}
+                        <span>🗓 ${formatKo(task.dateObj)}</span>
+                    </div>
+                </div>
+                <div class="task-actions">
+                    <div class="task-badge badge-${level}">${getLabelText(level)}</div>
+                    <a href="${gcalLink(task, i)}" target="_blank" class="calendar-btn">🗓 캘린더 등록</a>
                 </div>`;
-            resultCount.textContent = '!';
-        } finally {
-            setLoading(false);
-            resultSection.classList.add('visible');
-            setTimeout(() => {
-                resultSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }, 100);
+            taskList.appendChild(card);
+        });
+        setTimeout(() => document.getElementById('step3').classList.add('active'), tasks.length * 70 + 100);
+    }
+
+    resultSection.classList.add('visible');
+    setTimeout(() => resultSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 120);
+}
+
+function escHtml(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ── 핵심 추출 로직 ─────────────────────────────────
+function extractTasks(raw) {
+    const lines = raw.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+    const tasks = [];
+    const seen = new Set(); // 중복 방지
+
+    // 과목명 추출 (CyberCampus/과목 헤더 근처)
+    let globalSubject = null;
+    for (const line of lines) {
+        // 과목명 패턴: 한글+영문+숫자 섞인 긴 과목명 (bracket 과 [01] 스타일)
+        if (/^[가-힣a-zA-Z0-9\s]+\[\d+\]$/.test(line) && line.length > 5) {
+            globalSubject = line.replace(/\[\d+\]$/, '').trim();
+            break;
         }
     }
+
+    // ─── 방법 1: "종료 일시" / "마감" 키워드 기반 추출 ───
+    // e-Class는 "종료 일시\t2026-05-13 00:00" 또는 "마감일\t2026-05-13" 등으로 나옴
+    const deadlineKeywords = /종료\s*일시|마감\s*일시|마감일|제출\s*기한|종료일|deadline/i;
+    const ignoreKeywords   = /게시일|등록일|시작일|시작\s*일시|수정\s*일시|최종\s*수정/i;
+
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+
+        // 마감 관련 라인 찾기
+        if (!deadlineKeywords.test(line) || ignoreKeywords.test(line)) continue;
+
+        // 같은 라인이나 다음 라인에서 날짜 추출
+        const combined = line + ' ' + (lines[i+1] || '');
+        const dateMatch = combined.match(/\d{4}-\d{2}-\d{2}(?:\s+\d{2}:\d{2})?/);
+        if (!dateMatch) continue;
+
+        const dateObj = parseDate(dateMatch[0]);
+        if (!dateObj) continue;
+
+        const key = dateMatch[0];
+        if (seen.has(key)) continue;
+        seen.add(key);
+
+        // 과제명 찾기: 마감 라인보다 앞쪽에서 가장 가까운 의미있는 텍스트
+        const name = findTaskName(lines, i);
+        // 과목명 찾기: 마감 라인 앞쪽 탐색
+        const subject = findSubject(lines, i) || globalSubject;
+        // 종류 판별
+        const type = guessType(lines, i, name);
+
+        tasks.push({ name, subject, type, dateObj });
+    }
+
+    // ─── 방법 2: "제출 기한" 없어도 날짜만 있는 경우 폴백 ───
+    if (tasks.length === 0) {
+        const dateRe = /\d{4}-\d{2}-\d{2}(?:\s+\d{2}:\d{2})?/g;
+        const allMatches = [...raw.matchAll(dateRe)];
+        allMatches.forEach((m, i) => {
+            // 날짜 근처 줄에 마감 냄새 나는 키워드가 있는지 확인
+            const ctx = raw.substring(Math.max(0, m.index-60), m.index+40);
+            if (ignoreKeywords.test(ctx)) return; // 게시일 등은 무시
+            const dateObj = parseDate(m[0]);
+            if (!dateObj || seen.has(m[0])) return;
+            seen.add(m[0]);
+            tasks.push({
+                name: '과제 ' + (i+1),
+                subject: globalSubject,
+                type: '과제',
+                dateObj
+            });
+        });
+    }
+
+    // 마감일 오름차순 정렬
+    tasks.sort((a,b) => (a.dateObj||0) - (b.dateObj||0));
+    return tasks;
+}
+
+function findTaskName(lines, deadlineIdx) {
+    // 마감 라인 위로 탐색 — 첫 번째로 나오는 의미있는 제목 텍스트
+    const skipPatterns = /제출|채점|첨부|상황|일시|마감|수정|댓글|개인정보|CyberCampus|HOME|강의|성적|출석|관리|^\d+$/;
+    for (let j = deadlineIdx - 1; j >= Math.max(0, deadlineIdx - 15); j--) {
+        const l = lines[j];
+        if (l.length < 2 || skipPatterns.test(l)) continue;
+        if (/[가-힣a-zA-Z]/.test(l) && l.length <= 60) return l;
+    }
+    return '과제';
+}
+
+function findSubject(lines, deadlineIdx) {
+    // 과목명 패턴 탐색 (예: "생성형AI를활용한문화콘텐츠제작[01]")
+    for (let j = 0; j < deadlineIdx; j++) {
+        const l = lines[j];
+        if (/^[가-힣a-zA-Z0-9\s]+\[\d+\]/.test(l) && l.length > 5) {
+            return l.replace(/\[\d+\].*$/, '').trim();
+        }
+    }
+    return null;
+}
+
+function guessType(lines, deadlineIdx, name) {
+    const ctx = lines.slice(Math.max(0, deadlineIdx-10), deadlineIdx+2).join(' ') + ' ' + name;
+    if (/퀴즈|quiz/i.test(ctx))   return '퀴즈';
+    if (/토론|discussion/i.test(ctx)) return '토론';
+    if (/리포트|레포트|보고서/i.test(ctx)) return '리포트';
+    if (/출석|attendance/i.test(ctx)) return '출석';
+    return '과제';
+}
 </script>
 </body>
 </html>
