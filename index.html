@@ -1,582 +1,106 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>대진대 e-Class 갓생 비서</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --navy: #001f4d;
-            --navy-mid: #002d6e;
-            --blue: #0047b3;
-            --accent: #ff3b3b;
-            --accent-soft: #ff6b6b;
-            --gold: #ffc947;
-            --white: #ffffff;
-            --off-white: #f7f8fc;
-            --gray-light: #eef0f8;
-            --gray: #9aa0b8;
-            --text: #1a1e2e;
-        }
-
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-        body {
-            font-family: 'Noto Sans KR', sans-serif;
-            background-color: var(--navy);
-            min-height: 100vh;
-            color: var(--text);
-            overflow-x: hidden;
-        }
-
-        /* ─── Background grid decoration ─── */
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* ─── Glowing blob ─── */
-        body::after {
-            content: '';
-            position: fixed;
-            top: -20%;
-            right: -10%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(0,71,179,0.35) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 0;
-            animation: blobPulse 8s ease-in-out infinite;
-        }
-
-        @keyframes blobPulse {
-            0%, 100% { transform: scale(1) translate(0,0); }
-            50% { transform: scale(1.15) translate(-30px, 30px); }
-        }
-
-        /* ─── Header ─── */
-        header {
-            position: relative;
-            z-index: 10;
-            padding: 40px 24px 0;
-            max-width: 700px;
-            margin: 0 auto;
-            animation: slideDown 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
-        }
-
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-24px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 100px;
-            padding: 5px 14px;
-            font-size: 11px;
-            font-weight: 500;
-            color: var(--gold);
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            backdrop-filter: blur(8px);
-        }
-
-        .badge-dot {
-            width: 6px;
-            height: 6px;
-            background: var(--gold);
-            border-radius: 50%;
-            animation: blink 1.4s ease-in-out infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.2; }
-        }
-
-        h1 {
-            font-size: clamp(26px, 5vw, 38px);
-            font-weight: 900;
-            color: var(--white);
-            line-height: 1.2;
-            letter-spacing: -0.02em;
-        }
-
-        h1 em {
-            font-style: normal;
-            color: var(--gold);
-        }
-
-        header p {
-            color: rgba(255,255,255,0.55);
-            font-size: 13.5px;
-            font-weight: 300;
-            margin-top: 10px;
-            line-height: 1.7;
-        }
-
-        /* ─── Main card ─── */
-        main {
-            position: relative;
-            z-index: 10;
-            max-width: 700px;
-            margin: 28px auto 48px;
-            padding: 0 24px;
-            animation: slideUp 0.7s 0.15s cubic-bezier(0.22, 1, 0.36, 1) both;
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(28px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        .card {
-            background: var(--white);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow:
-                0 0 0 1px rgba(0,0,0,0.06),
-                0 24px 64px rgba(0,0,0,0.3);
-        }
-
-        /* ─── Step indicator ─── */
-        .step-bar {
-            background: var(--off-white);
-            border-bottom: 1px solid var(--gray-light);
-            padding: 14px 24px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .step {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 11.5px;
-            font-weight: 600;
-            color: var(--gray);
-            letter-spacing: 0.02em;
-        }
-
-        .step.active { color: var(--blue); }
-
-        .step-num {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: var(--gray-light);
-            color: var(--gray);
-            font-size: 10px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Space Mono', monospace;
-        }
-
-        .step.active .step-num {
-            background: var(--blue);
-            color: var(--white);
-        }
-
-        .step-sep {
-            flex: 1;
-            height: 1px;
-            background: var(--gray-light);
-        }
-
-        /* ─── Card body ─── */
-        .card-body { padding: 28px 28px 32px; }
-
-        .label {
-            display: block;
-            font-size: 11.5px;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--gray);
-            margin-bottom: 8px;
-        }
-
-        textarea {
-            width: 100%;
-            min-height: 140px;
-            border: 2px solid var(--gray-light);
-            border-radius: 12px;
-            padding: 14px 16px;
-            font-size: 13.5px;
-            font-family: 'Noto Sans KR', sans-serif;
-            color: var(--text);
-            background: var(--off-white);
-            resize: vertical;
-            outline: none;
-            transition: border-color 0.2s, box-shadow 0.2s;
-            line-height: 1.7;
-        }
-
-        textarea::placeholder { color: var(--gray); }
-
-        textarea:focus {
-            border-color: var(--blue);
-            box-shadow: 0 0 0 4px rgba(0,71,179,0.1);
-            background: var(--white);
-        }
-
-        .hint {
-            margin-top: 8px;
-            font-size: 11.5px;
-            color: var(--gray);
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .hint kbd {
-            background: var(--gray-light);
-            border: 1px solid #dde0eb;
-            border-radius: 4px;
-            padding: 1px 5px;
-            font-size: 10.5px;
-            font-family: 'Space Mono', monospace;
-            color: var(--text);
-        }
-
-        /* ─── Button ─── */
-        .btn-wrap { margin-top: 20px; }
-
-        button {
-            width: 100%;
-            padding: 16px;
-            background: var(--navy);
-            color: var(--white);
-            border: none;
-            border-radius: 12px;
-            font-size: 15px;
-            font-weight: 700;
-            font-family: 'Noto Sans KR', sans-serif;
-            cursor: pointer;
-            letter-spacing: 0.02em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.15s, box-shadow 0.15s;
-            box-shadow: 0 4px 20px rgba(0,31,77,0.3);
-        }
-
-        button::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 60%);
-            pointer-events: none;
-        }
-
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 28px rgba(0,31,77,0.4);
-            background: var(--navy-mid);
-        }
-
-        button:active { transform: translateY(0); }
-
-        .btn-icon { font-size: 18px; }
-
-        /* ─── Result section ─── */
-        .result-section {
-            margin-top: 28px;
-            opacity: 0;
-            transform: translateY(12px);
-            transition: opacity 0.4s, transform 0.4s;
-            pointer-events: none;
-        }
-
-        .result-section.visible {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: all;
-        }
-
-        .result-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 14px;
-        }
-
-        .result-title {
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--text);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .result-count {
-            background: var(--navy);
-            color: var(--white);
-            font-size: 10.5px;
-            font-weight: 700;
-            font-family: 'Space Mono', monospace;
-            padding: 2px 8px;
-            border-radius: 100px;
-        }
-
-        /* ─── Task cards ─── */
-        #taskList { display: flex; flex-direction: column; gap: 10px; }
-
-        .task-card {
-            display: flex;
-            align-items: stretch;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid var(--gray-light);
-            background: var(--white);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            animation: cardIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
-            transition: box-shadow 0.2s, transform 0.2s;
-        }
-
-        .task-card:hover {
-            box-shadow: 0 4px 18px rgba(0,0,0,0.1);
-            transform: translateY(-1px);
-        }
-
-        @keyframes cardIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        .task-stripe {
-            width: 4px;
-            flex-shrink: 0;
-        }
-
-        .urgent   { background: var(--accent); }
-        .warning  { background: var(--gold); }
-        .safe     { background: #34c759; }
-
-        .task-content {
-            flex: 1;
-            padding: 14px 16px;
-        }
-
-        .task-index {
-            font-size: 10px;
-            font-weight: 700;
-            font-family: 'Space Mono', monospace;
-            color: var(--gray);
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            margin-bottom: 4px;
-        }
-
-        .task-date {
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--text);
-        }
-
-        .task-sub {
-            font-size: 11.5px;
-            color: var(--gray);
-            margin-top: 4px;
-        }
-
-        .task-badge {
-            align-self: center;
-            margin-right: 14px;
-            font-size: 10.5px;
-            font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 100px;
-            letter-spacing: 0.04em;
-        }
-
-        .badge-urgent  { background: #fff0f0; color: var(--accent); }
-        .badge-warning { background: #fffbea; color: #b07d00; }
-        .badge-safe    { background: #edfaf2; color: #1a8f3e; }
-
-        /* ─── Empty state ─── */
-        .empty-state {
-            text-align: center;
-            padding: 32px 20px;
-            color: var(--gray);
-        }
-
-        .empty-state .empty-icon { font-size: 36px; margin-bottom: 10px; }
-        .empty-state p { font-size: 13.5px; line-height: 1.6; }
-
-        /* ─── Footer ─── */
-        footer {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            padding: 0 24px 40px;
-            animation: slideUp 0.7s 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
-        }
-
-        .footer-links {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            font-size: 11.5px;
-            color: rgba(255,255,255,0.3);
-        }
-
-        .footer-links span { color: rgba(255,255,255,0.12); }
-    </style>
-</head>
-<body>
-
-<header>
-    <div class="badge">
-        <span class="badge-dot"></span>
-        대진대학교 e-Class 연동
-    </div>
-    <h1>과제 <em>자동</em><br>리마인더 비서</h1>
-    <p>e-Class 공지·과제 화면을 복사해 붙여넣으면<br>마감일을 자동으로 추출해 드립니다.</p>
-</header>
-
-<main>
-    <div class="card">
-        <!-- Step bar -->
-        <div class="step-bar">
-            <div class="step active">
-                <div class="step-num">1</div>
-                텍스트 붙여넣기
-            </div>
-            <div class="step-sep"></div>
-            <div class="step" id="step2">
-                <div class="step-num">2</div>
-                과제 추출
-            </div>
-            <div class="step-sep"></div>
-            <div class="step" id="step3">
-                <div class="step-num">3</div>
-                등록 완료
-            </div>
-        </div>
-
-        <div class="card-body">
-            <label class="label" for="rawText">📋 e-Class 화면 텍스트</label>
-            <textarea
-                id="rawText"
-                placeholder="e-Class 과제/공지 페이지에서 Ctrl+A → Ctrl+C 후 여기에 Ctrl+V 하세요..."
-            ></textarea>
-            <p class="hint">
-                <span>💡 팁:</span>
-                <kbd>Ctrl</kbd>+<kbd>A</kbd>로 전체 선택 후
-                <kbd>Ctrl</kbd>+<kbd>C</kbd> 복사, 여기에
-                <kbd>Ctrl</kbd>+<kbd>V</kbd> 붙여넣기
-            </p>
-
-            <div class="btn-wrap">
-                <button onclick="parseDaejinLMS()">
-                    <span class="btn-icon">🔍</span>
-                    과제 자동 추출하기
-                </button>
-            </div>
-
-            <!-- Result section -->
-            <div class="result-section" id="resultSection">
-                <div class="result-header">
-                    <div class="result-title">
-                        📅 추출된 과제 목록
-                        <span class="result-count" id="resultCount">0</span>
-                    </div>
-                </div>
-                <div id="taskList">
-                    <div class="empty-state">
-                        <div class="empty-icon">📭</div>
-                        <p>아직 추출된 과제가 없습니다.<br>위에 텍스트를 붙여넣고 버튼을 눌러주세요.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</main>
-
-<footer>
-    <div class="footer-links">
-        <span>대진대학교</span>
-        <span>·</span>
-        <span>e-Class 갓생 비서 v1.0</span>
-        <span>·</span>
-        <span>Made with 💙</span>
-    </div>
-</footer>
+<style>
+    header p {
+        color: rgba(255,255,255,0.7); /* 0.55 -> 0.7 로 수정 */
+    }
+    
+    /* 카드 배경 투명도 수정 (가독성) */
+    .card {
+        background-color: var(--white);
+        border-radius: 20px;
+        overflow: hidden;
+        /* box-shadow 유지 */
+    }
+</style>
 
 <script>
+    // 날짜 인식 정규표현식 강화 (다양한 형식 지원)
+    function parseDates(text) {
+        // YYYY-MM-DD, YY.MM.DD, MM월 DD일, MM/DD 등 지원
+        const datePattern = /(\d{4}-\d{2}-\d{2})|(\d{2}\.\d{2}\.\d{2})|(\d{1,2}월\s?\d{1,2}일)|(\d{1,2}\/\d{1,2})/g;
+        return text.match(datePattern);
+    }
+
+    // 위험도 계산 로직 수정 (YY.MM.DD 등 지원)
     function getDanger(dateStr) {
-        // Try to parse date
         let target;
+        const now = new Date();
+        const currentYear = now.getFullYear();
+
         if (/\d{4}-\d{2}-\d{2}/.test(dateStr)) {
             target = new Date(dateStr);
-        } else {
-            // e.g. "05월 20일" → current year
+        } else if (/\d{2}\.\d{2}\.\d{2}/.test(dateStr)) {
+            const parts = dateStr.split('.');
+            target = new Date(`20${parts[0]}-${parts[1]}-${parts[2]}`);
+        } else if (/월.*일/.test(dateStr)) {
             const parts = dateStr.replace(/\s/g, '').match(/(\d{2})월(\d{2})일/);
             if (parts) {
-                const now = new Date();
-                target = new Date(now.getFullYear(), parseInt(parts[1]) - 1, parseInt(parts[2]));
+                target = new Date(currentYear, parseInt(parts[1]) - 1, parseInt(parts[2]));
             }
+        } else if (/\d{1,2}\/\d{1,2}/.test(dateStr)) {
+            const parts = dateStr.split('/');
+            target = new Date(currentYear, parseInt(parts[0]) - 1, parseInt(parts[1]));
         }
+
         if (!target || isNaN(target)) return 'safe';
-        const diff = Math.ceil((target - new Date()) / (1000 * 60 * 60 * 24));
+
+        // 과거 날짜 처리
+        if (target < now && Math.ceil((target - now) / (1000 * 60 * 60 * 24)) < -1) return 'safe'; // 이미 지난 과제
+
+        const diff = Math.ceil((target - now) / (1000 * 60 * 60 * 24));
         if (diff <= 2)  return 'urgent';
         if (diff <= 7)  return 'warning';
         return 'safe';
     }
 
-    function getLabelText(level) {
-        if (level === 'urgent')  return '🚨 긴급';
-        if (level === 'warning') return '⚠️ 임박';
-        return '✅ 여유';
+    // 구글 캘린더 링크 생성 함수 추가 (유저에게 실질적 가치 제공)
+    function getGoogleCalendarLink(taskIndex, dateStr) {
+        const title = encodeURIComponent(`대진대 과제 #${taskIndex}`);
+        let datePart = '';
+        if (/\d{4}-\d{2}-\d{2}/.test(dateStr)) {
+            datePart = dateStr.replace(/-/g, '');
+        } else {
+            // 다른 형식은 오늘 날짜로 임시 저장 (유저가 직접 수정)
+            const now = new Date();
+            datePart = now.toISOString().split('T')[0].replace(/-/g, '');
+        }
+        
+        const dates = `${datePart}/${datePart}`; // 하루 종일 이벤트
+        return `https://www.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${dates}&details=대진대e-Class에서추출됨`;
     }
 
+    // 메인 함수 수정
     function parseDaejinLMS() {
         const rawText = document.getElementById('rawText').value.trim();
         const taskList = document.getElementById('taskList');
         const resultSection = document.getElementById('resultSection');
         const resultCount = document.getElementById('resultCount');
 
-        const datePattern = /(\d{4}-\d{2}-\d{2})|(\d{1,2}월\s?\d{1,2}일)/g;
-        const foundDates = rawText.match(datePattern);
-
+        // 입력 텍스트 검증
         if (!rawText) {
             alert("텍스트를 먼저 붙여넣어 주세요!");
+            resetSteps();
             return;
         }
 
-        if (!foundDates) {
+        const foundDates = parseDates(rawText); // 강화된 날짜 파싱
+
+        // 날짜를 찾지 못한 경우 처리
+        if (!foundDates || foundDates.length === 0) {
             alert("날짜 형식을 찾지 못했습니다.\n과제 페이지의 내용을 올바르게 복사했는지 확인해주세요!");
+            taskList.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-icon">❓</div>
+                    <p>날짜를 인식하지 못했습니다.<br>복사한 내용을 다시 확인하고 붙여넣어 주세요.</p>
+                </div>
+            `;
+            resultCount.textContent = '0';
+            resultSection.classList.add('visible');
+            resetSteps();
             return;
         }
 
-        // Activate steps
+        // 스텝 바 업데이트 (날짜를 찾은 경우에만)
         document.getElementById('step2').classList.add('active');
-        document.getElementById('step3').classList.add('active');
 
         taskList.innerHTML = "";
         resultCount.textContent = foundDates.length;
@@ -586,25 +110,58 @@
             const card = document.createElement('div');
             card.className = 'task-card';
             card.style.animationDelay = `${index * 0.07}s`;
+            
+            // 실제 유용한 정보와 구글 캘린더 등록 버튼 추가
             card.innerHTML = `
                 <div class="task-stripe ${level}"></div>
                 <div class="task-content">
                     <div class="task-index">과제 #${String(index + 1).padStart(2, '0')}</div>
                     <div class="task-date">🗓 ${date}</div>
-                    <div class="task-sub">시트 및 리마인더에 자동 등록되었습니다.</div>
+                    <div class="task-sub">아래 버튼을 눌러 캘린더에 등록할 수 있습니다.</div>
                 </div>
                 <div class="task-badge badge-${level}">${getLabelText(level)}</div>
+                <a href="${getGoogleCalendarLink(index + 1, date)}" target="_blank" class="calendar-btn">🗓 캘린더 등록</a>
             `;
             taskList.appendChild(card);
         });
 
+        // 스텝 바 업데이트 (화면에 카드 표시 완료 후)
+        setTimeout(() => {
+            document.getElementById('step3').classList.add('active');
+        }, foundDates.length * 70);
+
         resultSection.classList.add('visible');
 
-        // Scroll to results
+        // 결과 영역으로 부드럽게 스크롤
         setTimeout(() => {
             resultSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }, 100);
     }
+
+    // 스텝 초기화 함수 추가
+    function resetSteps() {
+        document.getElementById('step2').classList.remove('active');
+        document.getElementById('step3').classList.remove('active');
+    }
 </script>
-</body>
-</html>
+
+<style>
+    .calendar-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        background-color: var(--blue);
+        color: var(--white);
+        text-decoration: none;
+        padding: 5px 12px;
+        border-radius: 8px;
+        font-size: 11.5px;
+        font-weight: 500;
+        margin-right: 14px;
+        align-self: center;
+        transition: background-color 0.15s;
+    }
+    .calendar-btn:hover {
+        background-color: var(--navy-mid);
+    }
+</style>
